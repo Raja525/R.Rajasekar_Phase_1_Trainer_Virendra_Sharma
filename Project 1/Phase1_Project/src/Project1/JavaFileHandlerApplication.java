@@ -111,6 +111,7 @@ private void UserInteraction() {
 }
 //------------------------------------------------Menu for input Selection----------------------------------------------
 public void MenuPage() {
+	try{
 	System.out.println();
 	System.out.println("Welcome to the RS FileHandling application");
 	System.out.println();
@@ -118,6 +119,7 @@ public void MenuPage() {
 	System.out.println("	1.Listout the Files name in Asc order");
 	System.out.println("	2.User Interaction Operations");
 	System.out.println("	3.Close the Application");
+	System.out.println("Note : Give your input as integer(Numers) corresponding to the option listed.");
 	JavaFileHandlerApplication obj=new JavaFileHandlerApplication();
 	Scanner scan=new Scanner(System.in);
 	int option=scan.nextInt();
@@ -139,53 +141,76 @@ public void MenuPage() {
 		break;
 	}
 	}
+		}
+	catch(Exception e)
+	{
+		System.out.println("Exception catched in Menu page:"+e);
+	}
 }
 //-----------------------------User Interaction Functions(Add,delete,search,navigate file)----------
 public void AddFile() throws IOException {
 	System.out.println("Please enter Filename with format(e.g:.txt,.doc)");
-	System.out.println("Note: Enter 'e' to exit and 'c' for continue");
+	System.out.println("Note: Enter 'e' to exit and 'c' for continue(give after enter the filename)");
 	Scanner scan=new Scanner(System.in);
 	String filename=scan.nextLine();
-	File file=new File("D:\\"+filename);
-	if(file.exists())
+	if(filename.equals("e")||filename.equals("c")||filename.equals(""))
 	{
-		System.out.println("File Already Exist!");
+		System.out.println("Please enter valid Filename");
 		System.out.println();
-		char input=scan.next().charAt(0);
-		if(input=='e') {
-			UserInteraction();
-		}
-		else if(input=='c') {
-			AddFile();
-		}
-		else {
-			System.out.println("invalid input!");
-			MenuPage();
-		}
-	}else {
-		file.createNewFile();
-		System.out.println("File Created Successfully!");
-		System.out.println();
-		char input=scan.next().charAt(0);
-		if(input=='e') {
-			UserInteraction();
-		}
-		else if(input=='c'){
-			AddFile();
-		}
-		else {
-			System.out.println("invalid input!");
-			MenuPage();
-		}
-	}	
+		AddFile();
+	}
+	else {
+		File file=new File("D:\\"+filename);
+		if(file.exists())
+		{
+			System.out.println("File Already Exist!");
+			System.out.println();
+			char input=scan.next().charAt(0);
+			if(input=='e') {
+				UserInteraction();
+			}
+			else if(input=='c') {
+				AddFile();
+			}
+			else {
+				System.out.println("invalid input!");
+				MenuPage();
+			}
+		}else {
+			file.createNewFile();
+			System.out.println("File Created Successfully!");
+			System.out.println();
+			char input=scan.next().charAt(0);
+			if(input=='e') {
+				UserInteraction();
+			}
+			else if(input=='c'){
+				AddFile();
+			}
+			else {
+				System.out.println("invalid input!");
+				MenuPage();
+			}
+		}	
+	}
+	
+	
+	
+
 }
 public void DeleteFile() {
 	System.out.println("Please enter Filename with format(e.g:.txt,.doc)");
-	System.out.println("Note: Enter 'e' to exit and 'c' for continue");
+	System.out.println("Note: Enter 'e' to exit and 'c' for continue(give after enter the filename)");
 	System.out.println("Please enter file name");
 	Scanner scan=new Scanner(System.in);
-	
 	String filename=scan.nextLine();
+	if(filename.equals("e")||filename.equals("c")||filename.equals(""))
+	{
+		System.out.println("Please enter valid filename");
+		System.out.println();
+		DeleteFile();
+	}
+	else {
 	File file=new File("D:\\"+filename);
 	File path=new File("D:\\");
 	String filecheck=file.getName();
@@ -230,6 +255,7 @@ public void DeleteFile() {
 		}
 	}
 }
+}
 public void NavigateFile() {
 	JavaFileHandlerApplication obj=new JavaFileHandlerApplication();
 	obj.MenuPage();
@@ -273,21 +299,30 @@ public void SearchFile() {
 	}
 }
 //-----------------------------------------------------------------------------------------------
-	public static void main(String[] args) {
-		JavaFileHandlerApplication obj=new JavaFileHandlerApplication();
-		obj.border();
-		obj.WelcomePage();
-		obj.border();
-		
+public static void main(String[] args) 
+{
+	try{
+	JavaFileHandlerApplication obj=new JavaFileHandlerApplication();
+	obj.border();
+	obj.WelcomePage();
+	obj.border();
+	
 Scanner scan=new Scanner(System.in);
 System.out.print("Enter 's' to Start the application");
 char start=scan.next().charAt(0);
-	if(start=='s')
-	{
-		obj.MenuPage();
+if(start=='s')
+{
+	obj.MenuPage();
+}
+else 
+{
+	System.out.print("invalid input");
+	obj.MenuPage();
+}
 	}
-	else {
-		System.out.print("invalid input");
+	catch(Exception e)
+	{
+		System.out.println("Exception in Main:"+e);
 	}
 }
 }
