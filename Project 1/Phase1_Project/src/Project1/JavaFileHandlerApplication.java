@@ -2,8 +2,7 @@ package Project1;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
-import java.util.TreeSet;
+import java.util.*;
 //--------------------------------------WelcomePage Functions------------------------------------------
 public class JavaFileHandlerApplication {
 	public void border()
@@ -37,14 +36,25 @@ private void WelcomePage() {
 }
 //------------------------------------------------HomePage Functions------------------------------------------------
 private void Order() {
-	File file=new File("D:\\");
-	String arr[]=file.list();
-	System.out.println();
+	File file=new File("D://");
 	System.out.println("Files in "+file.getAbsolutePath()+" Path is");
-	for(int i=1;i<arr.length;i++)
+	String arr[]=file.list();
+	Set<String> treeset=new TreeSet<String>();
+	int m=0;
+	for(String j:arr)
 	{
-		System.out.println("    "+i+". "+arr[i]);
+		m++;
+		treeset.add(j);
+		System.out.println("    "+m+"."+j);
 	}
+//	File file=new File("D:\\");
+//	String arr[]=file.list();
+//	System.out.println();
+//	System.out.println("Files in "+file.getAbsolutePath()+" Path is");
+//	for(int i=1;i<arr.length;i++)
+//	{
+//		System.out.println("    "+i+". "+arr[i]);
+//	}
 }
 private void UserInteraction() {
 	border();
